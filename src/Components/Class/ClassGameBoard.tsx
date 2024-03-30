@@ -1,11 +1,6 @@
 import { Component } from "react";
 import "./styles/game-board.css";
-import { TFishData } from "../../types";
-
-type TClassGameBoard = {
-  fishData: TFishData;
-  handleAnswer: (answer: string) => void;
-};
+import { TClassGameBoard } from "../../types";
 
 export class ClassGameBoard extends Component<TClassGameBoard> {
   state = {
