@@ -1,37 +1,41 @@
 import { Component } from "react";
 import "./styles/game-board.css";
-import { Images } from "../../assets/Images";
+import { TFishData } from "../../types";
 
-const initialFishes = [
-  {
-    name: "trout",
-    url: Images.trout,
-  },
-  {
-    name: "salmon",
-    url: Images.salmon,
-  },
-  {
-    name: "tuna",
-    url: Images.tuna,
-  },
-  {
-    name: "shark",
-    url: Images.shark,
-  },
-];
+type TClassGameBoard = {
+  fishData: TFishData;
+  handleAnswer: (answer: string) => void;
+};
 
-export class ClassGameBoard extends Component {
+export class ClassGameBoard extends Component<TClassGameBoard> {
+  state = {
+    fishGuess: "",
+  };
   render() {
-    const nextFishToName = initialFishes[0];
+    const { fishData, handleAnswer } = this.props;
+    const { fishGuess } = this.state;
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      handleAnswer(fishGuess);
+      this.setState({ fishGuess: "" });
+    };
+
     return (
       <div id="game-board">
         <div id="fish-container">
-          <img src={nextFishToName.url} alt={nextFishToName.name} />
+          <img src={fishData.url} alt={fishData.name} />
         </div>
-        <form id="fish-guess-form">
+        <form id="fish-guess-form" onSubmit={handleSubmit}>
           <label htmlFor="fish-guess">What kind of fish is this?</label>
-          <input type="text" name="fish-guess" />
+          <input
+            type="text"
+            name="fish-guess"
+            onChange={(event) => {
+              this.setState({ fishGuess: event.target.value });
+            }}
+            value={fishGuess}
+          />
           <input type="submit" />
         </form>
       </div>

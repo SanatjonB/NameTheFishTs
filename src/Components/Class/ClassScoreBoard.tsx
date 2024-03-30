@@ -1,11 +1,10 @@
 import { Component } from "react";
 import "./styles/score-board.css";
+import { ScoreBoardProps } from "../../types";
 
-const incorrectCount = 0;
-const correctCount = 0;
-const answersLeft = ["trout", "salmon", "tuna", "shark"];
-export class ClassScoreBoard extends Component {
+export class ClassScoreBoard extends Component<ScoreBoardProps> {
   render() {
+    const { correctCount, incorrectCount, answersLeft } = this.props;
     return (
       <div id="score-board">
         <div>Incorrect 🔻: {incorrectCount}</div>
